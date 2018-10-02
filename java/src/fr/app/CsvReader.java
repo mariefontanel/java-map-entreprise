@@ -9,16 +9,17 @@ import java.util.List;
 public class CsvReader {
 
     private String csvFile;
+    private boolean header;
 
     /**
-     *
      * @param path
      */
-    public CsvReader(String path) {
+    public CsvReader(String path, boolean header) {
         this.csvFile = path;
+        this.header = header;
     }
 
-/*    *//**
+    /*    *//**
      *
      * @param csvFile
      *//*
@@ -35,7 +36,6 @@ public class CsvReader {
     }*/
 
     /**
-     *
      * @return List de Country
      */
     public List<Country> read() {
@@ -48,24 +48,28 @@ public class CsvReader {
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
 
+            if (this.header) { // si le header est présent / true
+                br.readLine(); // je lis une ligne sans rien faire pour passer à la suivante
+            }
             while ((line = br.readLine()) != null) {
+                if (line.equals("")) {
+                    continue;  // Skip blank lines
+                }
 
                 // use comma as separator
                 String[] countryLine = line.split(cvsSplitBy);
 
-                //System.out.println(line);
 
                 Country country = new Country();
 
-                country.setId(Integer.parseInt(countryLine[0]));
-                country.setName(countryLine[1]);
-                country.setAbbrev(countryLine[2]);
+                country.setId(Integer.parseInt(countryLine[0].trim())); // methode trim() qui supprime les espaces dans une string
+                country.setName(countryLine[1].trim());
+                country.setAbbrev(countryLine[2].trim());
 
                 dataCountry.add(country);
             }
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException e1) {
+            e1.printStackTrace();
         }
         return dataCountry;
     }
