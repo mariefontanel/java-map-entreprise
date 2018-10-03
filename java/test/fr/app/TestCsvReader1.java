@@ -1,17 +1,19 @@
+/*
 package fr.app;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
 
-public class TestCsvReader {
-    /**
+public class TestCsvReader1 {
+    */
+/**
      * Test lecture csv
-     */
+     *//*
+
     @Test
-    public void shouldReadAllCsvLines() {
-        //preparation de l'environment
+    public void testRead1() {
         String csvFile = "data/country1.csv";
         CsvReader reader = new CsvReader(csvFile, false);
 
@@ -25,30 +27,27 @@ public class TestCsvReader {
         Country country1Attendu = new Country(1, "France", "FR");
 
         // AVANT AJOUT CONSTRUCTEUR - assignation des valeurs de la ligne 1 du CSV à notre nouvel objet
-        /*country1Attendu.setId(1);
+        */
+/*country1Attendu.setId(1);
         country1Attendu.setName("France");
         country1Attendu.setAbbrev("FR");
-*/
+*//*
+
         // comparaison des 2 objets
-        assertThat(country1).isEqualTo(country1Attendu);
+        Assertions.assertEquals(country1, country1Attendu);
         // test taille de notre liste
-        assertThat(dataCountry).hasSize(3);
-        //Assertions.assertEquals(3, dataCountry.size());
+        Assertions.assertEquals(3, dataCountry.size());
 
         //test du nom de l'objet numero 2
-        assertThat(dataCountry.get(1).getName()).contains("Belgique");
-        //Assertions.assertEquals(dataCountry.get(1).getName(), "Belgique");
-        System.out.println("Test 1 = " + dataCountry);
-
+        Assertions.assertEquals(dataCountry.get(1).getName(), "Belgique");
     }
-
     @Test
-    public void shouldReadCsvWithEmptyFirstLine() {
+    public void testRead2() {
         String csvFile = "data/country2.csv";
         CsvReader reader = new CsvReader(csvFile, false);
 
         List<Country> dataCountry = reader.read();
-        //Assertions.assertEquals(3, dataCountry.size());
+        Assertions.assertEquals(3, dataCountry.size());
 
         // récupération des données de l'objet numéro 1 (à l'index 0)
         Country country1 = dataCountry.get(0);
@@ -57,26 +56,17 @@ public class TestCsvReader {
         Country country1Attendu = new Country(1, "France", "FR");
 
         // comparaison des 2 objets
-        assertThat(country1).isEqualTo(country1Attendu);
-
-        // test taille de notre liste
-        assertThat(dataCountry).hasSize(3);
-        //Assertions.assertEquals(3, dataCountry.size());
-
-        //test du nom de l'objet numero 2
-        assertThat(dataCountry.get(1).getName()).contains("Belgique");
-        //Assertions.assertEquals(country1, country1Attendu);
-        System.out.println("Test 2 = " + dataCountry);
+        Assertions.assertEquals(country1, country1Attendu);
 
     }
 
     @Test
-    public void shouldIgnoreSpacesInColumn() {
+    public void testRead3() {
         String csvFile = "data/country3.csv";
         CsvReader reader = new CsvReader(csvFile, false);
 
         List<Country> dataCountry = reader.read();
-        //Assertions.assertEquals(3, dataCountry.size());
+        Assertions.assertEquals(3, dataCountry.size());
 
         // récupération des données de l'objet numéro 1 (à l'index 0)
         Country country1 = dataCountry.get(0);
@@ -85,27 +75,17 @@ public class TestCsvReader {
         Country country1Attendu = new Country(1, "France", "FR");
 
         // comparaison des 2 objets
-        assertThat(country1).isEqualTo(country1Attendu);
-
-        // test taille de notre liste
-        assertThat(dataCountry).hasSize(3);
-        //Assertions.assertEquals(3, dataCountry.size());
-
-        //test du nom de l'objet numero 2
-        assertThat(dataCountry.get(1).getName()).contains("Belgique");
-        //Assertions.assertEquals(country1, country1Attendu);
-        System.out.println("Test 3 = " + dataCountry);
-
+        Assertions.assertEquals(country1, country1Attendu);
 
     }
 
     @Test
-    public void shouldReadCsvWithHeader() {
+    public void testRead4() {
         String csvFile = "data/country4.csv";
         CsvReader reader = new CsvReader(csvFile, true);
 
         List<Country> dataCountry = reader.read();
-        //Assertions.assertEquals(3, dataCountry.size());
+        Assertions.assertEquals(3, dataCountry.size());
 
         // récupération des données de l'objet numéro 1 (à l'index 1)
         Country country1 = dataCountry.get(0);
@@ -114,26 +94,17 @@ public class TestCsvReader {
         Country country1Attendu = new Country(1, "France", "FR");
 
         // comparaison des 2 objets
-        assertThat(country1).isEqualTo(country1Attendu);
-
-        // test taille de notre liste
-        assertThat(dataCountry).hasSize(3);
-        //Assertions.assertEquals(3, dataCountry.size());
-
-        //test du nom de l'objet numero 2
-        assertThat(dataCountry.get(1).getName()).contains("Belgique");
-        //Assertions.assertEquals(country1, country1Attendu);
-        System.out.println("Test 4 = " + dataCountry);
+        Assertions.assertEquals(country1, country1Attendu);
 
     }
 
     @Test
-    public void shouldIgnoreEmptyColumns() {
+    public void testRead5() {
         String csvFile = "data/country5.csv";
         CsvReader reader = new CsvReader(csvFile, true);
 
         List<Country> dataCountry = reader.read();
-        //Assertions.assertEquals(3, dataCountry.size());
+        Assertions.assertEquals(3, dataCountry.size());
 
         // récupération des données de l'objet numéro 1 (à l'index 1)
         Country country1 = dataCountry.get(0);
@@ -142,21 +113,12 @@ public class TestCsvReader {
         Country country1Attendu = new Country(0, "France", "FR");
 
         // comparaison des 2 objets
-        assertThat(country1).isEqualTo(country1Attendu);
-
-        // test taille de notre liste
-        assertThat(dataCountry).hasSize(3);
-        //Assertions.assertEquals(3, dataCountry.size());
-
-        //test du nom de l'objet numero 2
-        assertThat(dataCountry.get(1).getName()).contains("Belgique");
-        //Assertions.assertEquals(country1, country1Attendu);
-        System.out.println("Test 5 = " + dataCountry);
+        Assertions.assertEquals(country1, country1Attendu);
 
     }
 
     @Test
-    public void shouldReadCsv() {
+    public void testRead6() {
         String csvFile = "data/country6.csv";
         CsvReader reader = new CsvReader(csvFile, true);
 
@@ -169,16 +131,9 @@ public class TestCsvReader {
         Country country1Attendu = new Country(0, "France", "FR");
 
         // comparaison des 2 objets
-        assertThat(country1).isEqualTo(country1Attendu);
+        Assertions.assertEquals(country1, country1Attendu);
 
-        // test taille de notre liste
-        assertThat(dataCountry).hasSize(9);
-        //Assertions.assertEquals(9, dataCountry.size());
-
-        //test du nom de l'objet numero 2
-        assertThat(dataCountry.get(1).getName()).contains("Belgique");
-        //Assertions.assertEquals(country1, country1Attendu);
-        System.out.println("Test 6 = " + dataCountry);
     }
 
 }
+*/

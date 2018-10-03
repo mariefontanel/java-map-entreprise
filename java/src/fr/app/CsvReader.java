@@ -19,21 +19,19 @@ public class CsvReader {
         this.header = header;
     }
 
-    /*    *//**
-     *
+    /**
      * @param csvFile
-     *//*
+     */
     public void setCsvFile(String csvFile) {
         this.csvFile = csvFile;
     }
 
-    *//**
-     *
+    /**
      * @return
-     *//*
+     */
     public String getCsvFile() {
         return csvFile;
-    }*/
+    }
 
     /**
      * @return List de Country
@@ -44,7 +42,7 @@ public class CsvReader {
 
 
         String line = "";
-        String cvsSplitBy = ",";
+        String cvsSplitBy = ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
 
@@ -55,18 +53,22 @@ public class CsvReader {
                 if (line.equals("")) {
                     continue;  // Skip blank lines
                 }
-
-                // use comma as separator
+                // use regex as separator ," "
                 String[] countryLine = line.split(cvsSplitBy);
-
-
                 Country country = new Country();
 
-                country.setId(Integer.parseInt(countryLine[0].trim())); // methode trim() qui supprime les espaces dans une string
-                country.setName(countryLine[1].trim());
-                country.setAbbrev(countryLine[2].trim());
+                if (countryLine[0].trim().length() > 0) {
+                    country.setId(Integer.parseInt(countryLine[0].trim())); // methode trim() qui supprime les espaces dans une string
+                }
+                if (countryLine[1].trim().length() > 0) {
+                    country.setName(countryLine[1].trim());
+                }
+                if (countryLine[2].trim().length() > 0) {
+                    country.setAbbrev(countryLine[2].trim());
+                }
 
                 dataCountry.add(country);
+
             }
         } catch (IOException e1) {
             e1.printStackTrace();
